@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <!-- Start All Title Box -->
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Shop Detail</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active">Shop Detail </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End All Title Box -->
+
+    <!-- Start Shop Detail  -->
+    <div class="shop-detail-box-main">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-5 col-lg-5 col-md-6">
+                    <div>
+                        <div>
+                            <div> <img class="d-block w-100" src="{{product.image.url}}" alt=""> </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xl-7 col-lg-7 col-md-6">
+                    <div class="single-product-details">
+                        <h2>{{product.name}}</h2>
+                        <h5>{{product.price}}</h5>
+                        <p class="available-stock">
+    {% if product.stock > 0 %}
+        <span>{{ product.stock }} items available <a href="#">8 sold </a></span>
+    {% else %}
+        <span>Out of stock</span>
+    {% endif %}
+</p>
+
+						<h4>Short Description:</h4>
+						<p>{{product.description}} </p>
+
+
+						<div class="price-box-bar">
+                            {% if user.is_superuser == True %}
+							<div class="cart-and-bay-btn">
+								<a class="btn hvr-hover" data-fancybox-close="" href="{% url 'shop:addstock' product.id %}">Add Stock</a>
+							</div>
+                            {% else %}
+                            <div class="add-comp">
+                                {% if product.stock > 0 %}
+								<a class="btn hvr-hover" href="{% url 'cart:addtocart' product.id %}"><i class="fas fa-heart"></i> Add to Cart</a>
+                                {% else %}
+								<a class="btn hvr-hover" href="#"><i class="fas fa-sync-alt"></i> Out of stock</a>
+                                {% endif %}
+							</div>
+                            {% endif %}
+						</div>
+
+						<div class="add-to-btn">
+
+							<div class="share-bar">
+								<a class="btn hvr-hover" href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+								<a class="btn hvr-hover" href="#"><i class="fab fa-google-plus" aria-hidden="true"></i></a>
+								<a class="btn hvr-hover" href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+								<a class="btn hvr-hover" href="#"><i class="fab fa-pinterest-p" aria-hidden="true"></i></a>
+								<a class="btn hvr-hover" href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+							</div>
+						</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

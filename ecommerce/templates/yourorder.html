@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="d-flex align-items-center justify-content-center mb-5">
+    <div class="all-title-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Your Orders {{ user.username }}</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active">Shop Detail</li>
+                    </ul>
+                </div>
+                {% for i in orders %}
+<div class="container w-75">
+    <h1 class="text-center mb-3 bg-primary">Your Orders: {{ user.username }}</h1>
+
+    {% for j in i.products.all %}
+    <div class="card mb-3" style="max-width: 540px;">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{ j.product.image.url }}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h2 class="card-title"><b>Product Name:</b> {{ j.product.name }}</h2>
+                    <h5 class="card-title"><b>Product Price:</b> {{ j.product.price }}</h5>
+                    <h5 class="card-title"><b>Product Quantity:</b> {{ j.quantity }}</h5>
+                    <h5 class="card-title"><b>Ordered Date:</b> {{ i.order_date }}</h5>
+                    <h5 class="card-title"><b>Delivery Status:</b> {{ i.delivery_status }}</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}
